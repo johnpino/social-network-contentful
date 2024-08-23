@@ -1,26 +1,28 @@
 import { User } from "next-auth";
-import publishContentfulEntry from "@/utils/publishEntry";
+import publishEntry from "@/utils/publishEntry";
 import createEntry from "@/utils/createEntry";
 import getEntries from "./getEntries";
 
-const handleUserAccount = async (user: User) => {
+const handleUserAccount = async (user: User, id: string) => {
   const data = await getEntries({
     contentType: "user",
-    fields: [{ name: "email", value: user.email || "" }],
+    fields: [{ name: "id", value: id || "" }],
   });
 
   if (data.length === 0) {
     const userData = await createEntry("user", {
-      id: user.id,
+      id,
       name: user.name,
       email: user.email,
       image: user.image,
     });
 
-    await publishContentfulEntry(userData);
+    await publishEntry(userData);
 
-    return;
+    return userData.sys.id;
   }
+
+  return data[0].sys.id
 };
 
 export default handleUserAccount;

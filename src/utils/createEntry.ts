@@ -1,7 +1,7 @@
-import { EntryProps } from "contentful-management";
+import { EntryProps, SysLink } from "contentful-management";
 
-const createEntry = async (type: string, fields: Record<string, string | undefined | null>) => {
-  const mappedFields: Record<string, Record<string, string | undefined | null>> = {};
+const createEntry = async (type: string, fields: Record<string, string | SysLink |undefined | null >) => {
+  const mappedFields: Record<string, Record<string, string | SysLink | undefined | null>> = {};
 
   for (const key in fields) {
     mappedFields[key] = {

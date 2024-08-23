@@ -1,5 +1,5 @@
 import { signIn, auth, signOut } from "@/auth";
-import { Feed, Session } from "@/components";
+import { CreatePost, Feed, Session } from "@/components";
 
 export default async function Home() {
   const session = await auth();
@@ -7,6 +7,7 @@ export default async function Home() {
   return (
     <div className="grid justify-center justify-items-center">
       <Feed />
+      {session ? <CreatePost /> : null}
       <Session />
     </div>
   );
