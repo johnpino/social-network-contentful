@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "contentful:types": "node ./src/scripts/contentful-types.js",
+    "contentful:export": "node ./src/scripts/contentful-export.js",
+    "contentful:generate-types": "npm run contentful:export && npm run contentful:types"
   },
   "dependencies": {
     "@auth/core": "^0.34.2",
@@ -16,9 +19,15 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@types/contentful-resolve-response": "^0.1.33",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "cf-content-types-generator": "^2.15.5",
+    "contentful": "^10.15.0",
+    "contentful-cli": "^3.3.7",
+    "contentful-resolve-response": "^1.9.0",
+    "dotenv": "^16.4.5",
     "eslint": "^8",
     "eslint-config-next": "14.2.6",
     "postcss": "^8",
