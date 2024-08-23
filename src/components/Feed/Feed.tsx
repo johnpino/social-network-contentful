@@ -1,5 +1,6 @@
 import getEntries from "@/utils/getEntries";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import Image from "next/image";
 
 const Feed = async () => {
   const data = await getEntries({
@@ -7,12 +8,23 @@ const Feed = async () => {
   });
 
   const posts = data.map((post) => (
-    <div
-      key={post.sys.id}
-      dangerouslySetInnerHTML={{
-        __html: documentToHtmlString(post.fields.content),
-      }}
-    ></div>
+    <div key={post.sys.id}>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: documentToHtmlString(post.fields.content),
+        }}
+      ></div>
+      <div>
+        <Image
+          src={post.fields.author.fields.image}
+          width={25}
+          height={25}
+          alt={`${post.fields.author.fields.name} Profile Photo`}
+        />
+      </div>
+      <div>Published by: {post.fields.author.fields.name}</div>
+      <div>On: {post.sys.createdAt}</div>
+    </div>
   ));
 
   return <div>{posts}</div>;
