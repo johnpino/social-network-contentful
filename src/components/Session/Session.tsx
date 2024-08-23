@@ -1,4 +1,5 @@
 import { signIn, auth, signOut } from "@/auth";
+import { Button } from '@/components'
 
 const Session = async () => {
   const session = await auth();
@@ -10,7 +11,7 @@ const Session = async () => {
         await signIn("github");
       }}
     >
-      <button type="submit">Signin with GitHub</button>
+      <Button type="submit">SignIn with GitHub</Button>
     </form>
   ) : (
     <form
@@ -19,7 +20,7 @@ const Session = async () => {
         await signOut();
       }}
     >
-      <button type="submit">SignOut</button>
+      <Button type="submit">SignOut</Button>
     </form>
   );
 };
