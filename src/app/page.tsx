@@ -5,7 +5,7 @@ export default async function Home() {
   const session = await auth();
 
   return (
-    <div className="grid justify-center">
+    <div className="grid justify-center justify-items-center">
       <Feed />
       <Session />
     </div>

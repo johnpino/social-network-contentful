@@ -27,7 +27,7 @@ const Feed = async () => {
     </div>
   ));
 
-  return <div>{posts}</div>;
+  return <div className="flex flex-col mb-8 gap-4">{posts}</div>;
 };
 
 export default Feed;
