@@ -21,7 +21,8 @@
       "@/*": ["./src/*"],
       "@/auth": ["./auth.ts"],
       "@/contentful-types": ["./contentful/types"],
-      "@/utils": ["./src/utils"]
+      "@/utils": ["./src/utils"],
+      "@/components": ["./src/components"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

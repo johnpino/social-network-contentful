@@ -20,6 +20,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@contentful/rich-text-html-renderer": "^16.6.8",
     "@types/contentful-resolve-response": "^0.1.33",
     "@types/node": "^20",
     "@types/react": "^18",
