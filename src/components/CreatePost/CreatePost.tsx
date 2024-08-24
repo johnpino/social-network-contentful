@@ -6,8 +6,6 @@ import publishEntry from "@/utils/publishEntry";
 const CreatePost = async () => {
   const session = await auth();
 
-  console.log(session)
-
   const handler = async (formData: FormData) => {
     "use server";
 
