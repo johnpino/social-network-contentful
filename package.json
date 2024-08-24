@@ -14,6 +14,7 @@
   "dependencies": {
     "@auth/core": "^0.34.2",
     "contentful-management": "^11.31.7",
+    "moment": "^2.30.1",
     "next": "14.2.6",
     "next-auth": "^5.0.0-beta.20",
     "react": "^18",
