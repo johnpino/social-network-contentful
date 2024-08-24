@@ -1,34 +1,23 @@
-import { auth } from "@/auth";
+"use client";
 import { Button } from "@/components";
-import createEntry from "@/utils/createEntry";
-import publishEntry from "@/utils/publishEntry";
+import { useRef } from "react";
 
-const CreatePost = async () => {
-  const session = await auth();
+import submitAction from "./actions";
 
-  const handler = async (formData: FormData) => {
-    "use server";
+const CreatePost = () => {
+  const ref = useRef<HTMLFormElement>(null);
 
-    const data = await createEntry("post", {
-      title: `${session?.user?.name}'s Post`,
-      content: formData.get("content") as string,
-      author: {
-        sys: {
-            type: 'Link',
-            linkType: 'Entry',
-            id: session?.user?.contentfulId as string
-        }
-      }
-    });
-
-    await publishEntry(data)
+  //TODO: This approach for resseting the form is throwing the following error "javascript:throw new Error('React form unexpectedly submitted.')"
+  const handleSubmit = async (formData: FormData) => {
+    await submitAction(formData);
+    ref.current?.reset();
   };
 
   return (
     <div>
-      <form action={handler} className="flex flex-col mb-8">
-        <textarea name="content"></textarea>
-        <Button type="submit">Post</Button>
+      <form ref={ref} action={handleSubmit} className="flex flex-col mb-8">
+        <textarea required name="content"></textarea>
+        <button type="submit">Post</button>
       </form>
     </div>
   );

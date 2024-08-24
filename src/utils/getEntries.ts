@@ -17,7 +17,7 @@ const getEntries = async ({ contentType, fields}: GetEntriesProps) => {
 
   const url = `${baseUrl}${searchParams}&content_type=${contentType}&${mappedFields}`;
 
-  const response = await fetch(url);
+  const response = await fetch(url, { next: { tags: [ contentType ] } });
   const data: CollectionProp<EntryProps> = await response.json();
 
   const resolvedData = resolveResponse(data) as EntryProps[]
