@@ -1,14 +1,9 @@
-import { signIn } from "@/auth";
 import { Button } from "@/components";
+import { signInAction } from "./actions";
 
-const SignIn = async () => {
+const SignIn = () => {
   return (
-    <form
-      action={async () => {
-        "use server";
-        await signIn("github");
-      }}
-    >
+    <form action={signInAction}>
       <Button type="submit">SignIn with GitHub</Button>
     </form>
   );

@@ -4,11 +4,13 @@ import { CreatePost, Feed, SignIn, SignOut } from "@/components";
 export default async function Home() {
   const session = await auth();
 
+  console.log(session);
+
   return (
     <div className="container mx-auto">
       <Feed />
       {session ? <CreatePost /> : null}
-      {session ? <SignIn /> : <SignOut />}
+      {session ? <SignOut /> : <SignIn />}
     </div>
   );
 }

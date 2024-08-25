@@ -1,17 +1,15 @@
-import { signOut } from "@/auth";
 import { Button } from "@/components";
+import { signOutAction } from "./actions";
 
-const SignIn = async () => {
+const SignOut = async () => {
+  if(typeof window === 'undefined') console.log('this is the server baby')
   return (
     <form
-      action={async () => {
-        "use server";
-        await signOut();
-      }}
+      action={signOutAction}
     >
       <Button type="submit">Sign Out</Button>
     </form>
   );
 };
 
-export default SignIn;
+export default SignOut;
