@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import Image from "next/image";
 import moment from "moment";
 import CreateComment from "./CreateComment";
+import CreateReaction from "./CreateReaction";
 
 type PostProps = {
   id: string;
@@ -32,11 +33,15 @@ const Post = (props: PostProps) => {
         </div>
       </div>
       <div className="px-4 pb-4">{props.children}</div>
+      <CreateReaction author={props.author} postId={props.id} />
       {props.comments && (
         <>
           <hr className="border-slate-300" />
           <div className="p-4">
-            <div className="text-sm mb-4">Comments</div>
+            <div className="text-sm mb-4">
+              Comments{" "}
+              <span className="text-xs">({props.comments.length})</span>
+            </div>
             <div className="flex flex-col gap-4">
               {props.comments &&
                 props.comments.map((comment) => (
@@ -67,7 +72,11 @@ const Post = (props: PostProps) => {
           </div>
         </>
       )}
-      <CreateComment author={props.author} postId={props.id} version={props.version}/>
+      <CreateComment
+        author={props.author}
+        postId={props.id}
+        version={props.version}
+      />
     </div>
   );
 };
