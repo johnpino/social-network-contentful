@@ -2,7 +2,6 @@ import { Button } from "@/components";
 import { signOutAction } from "./actions";
 
 const SignOut = async () => {
-  if(typeof window === 'undefined') console.log('this is the server baby')
   return (
     <form
       action={signOutAction}
