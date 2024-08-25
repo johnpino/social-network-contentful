@@ -31,11 +31,11 @@ const CreateReaction = async (props: CreateReactionProps) => {
   );
 
   const loves = reactions.filter((reaction) =>
-    reaction.fields.type.includes("Love")
+    reaction.fields.users && reaction.fields.type.includes("Love")
   ).length;
 
   const likes = reactions.filter((reaction) =>
-    reaction.fields.type.includes("Like")
+    reaction.fields.users && reaction.fields.type.includes("Like")
   ).length;
 
   return (
