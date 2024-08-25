@@ -2,8 +2,12 @@ import { EntryProps } from "contentful-management";
 import { ReactNode } from "react";
 import Image from "next/image";
 import moment from "moment";
+import { Button } from "@/components";
+import { submitCommentAction } from "./actions";
 
 type PostProps = {
+  id: string;
+  version: number;
   author: EntryProps["fields"];
   children: ReactNode;
   comments?: Array<EntryProps["fields"]>;
@@ -11,6 +15,8 @@ type PostProps = {
 };
 
 const Post = (props: PostProps) => {
+  const submitCommentHandler = submitCommentAction.bind(null, props.id, props.version, props.author)
+
   return (
     <div className="border rounded-md border-slate-400">
       <div className="p-4 flex gap-4 items-center">
@@ -36,7 +42,7 @@ const Post = (props: PostProps) => {
             <div className="text-sm mb-4">Comments</div>
             {props.comments &&
               props.comments.map((comment) => (
-                <div className="flex gap-4 mb-4" key={comment.sys.id}>
+                <div className="flex gap-4" key={comment.sys.id}>
                   <div className="shrink-0">
                     <Image
                       className="rounded-full h-fit"
@@ -62,6 +68,20 @@ const Post = (props: PostProps) => {
           </div>
         </>
       )}
+      <hr className="border-slate-300" />
+      <div className="flex gap-4 p-4">
+        <Image
+          className="rounded-full h-fit"
+          src={props.author.image}
+          width={25}
+          height={25}
+          alt={`${props.author.name} Profile Photo`}
+        />
+        <form action={submitCommentHandler} className="flex w-full gap-2 items-start">
+          <textarea className="resize-none w-full p-2" placeholder="Comment..." name="comment" id="comment" required></textarea>
+          <Button type="submit">Send</Button>
+        </form>
+      </div>
     </div>
   );
 };

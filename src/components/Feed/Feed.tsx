@@ -9,6 +9,8 @@ const Feed = async () => {
   const posts = data.map((post) => (
     <Post
       key={post.sys.id}
+      id={post.sys.id}
+      version={post.sys.version}
       author={post.fields.author.fields}
       comments={post.fields.comments}
       createdAt={post.sys.createdAt}
