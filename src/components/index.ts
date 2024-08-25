@@ -1,7 +1,8 @@
 import Feed from "./Feed/Feed";
-import Session from "./Session/Session";
+import SignIn from "./SignIn/SignIn";
+import SignOut from "./SignOut/SignOut";
 import Button from "./Button/Button";
 import CreatePost from "./CreatePost/CreatePost";
 import Post from "./Post/Post"
 
-export { Feed, Session, Button, CreatePost, Post };
+export { Feed, SignIn, SignOut, Button, CreatePost, Post };
