@@ -11,7 +11,7 @@ type GetEntriesProps = {
 
 const getEntries = async ({ contentType, fields}: GetEntriesProps) => {
   const baseUrl = `${process.env.CONTENTFUL_DELIVERY_BASE_URL}/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/${process.env.CONTENTFUL_ENVIRONMENT}/entries`;
-  const searchParams = `?access_token=${process.env.CONTENTFUL_DELIVERY_ACCESS_TOKEN}&include=10&limit=10`;
+  const searchParams = `?access_token=${process.env.CONTENTFUL_DELIVERY_ACCESS_TOKEN}&include=10&limit=10&order=-sys.createdAt`;
 
   const mappedFields = fields ? fields.map(field => `fields.${field.name}=${field.value}`).join('&') : ''
 
