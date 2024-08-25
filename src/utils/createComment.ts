@@ -3,6 +3,7 @@ import createEntry from "./createEntry";
 import { auth } from "@/auth";
 import publishEntry from "./publishEntry";
 import getEntry from "./getEntry";
+import { revalidateTag } from "next/cache";
 
 const createComment = async (
   postId: string,
@@ -77,6 +78,8 @@ const createComment = async (
   const data: EntryProps = await response.json();
 
   await publishEntry(data);
+
+  revalidateTag('post')
 
   return data;
 };
