@@ -45,7 +45,7 @@ const CreateReaction = async (props: CreateReactionProps) => {
               reaction.fields.type.includes("Love")
             ) ? (
               <button type="submit">
-                <HeartIconSolid className="size-5" />
+                <HeartIconSolid className="size-5 text-green-500" />
               </button>
             ) : (
               <button type="submit">
@@ -67,7 +67,7 @@ const CreateReaction = async (props: CreateReactionProps) => {
               reaction.fields.type.includes("Like")
             ) ? (
               <button type="submit">
-                <HandThumbUpIconSolid className="size-5" />
+                <HandThumbUpIconSolid className="size-5 text-green-500" />
               </button>
             ) : (
               <button type="submit">
