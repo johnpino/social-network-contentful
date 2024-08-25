@@ -30,12 +30,21 @@ const CreateReaction = async (props: CreateReactionProps) => {
     )
   );
 
+  const loves = reactions.filter((reaction) =>
+    reaction.fields.type.includes("Love")
+  ).length;
+
+  const likes = reactions.filter((reaction) =>
+    reaction.fields.type.includes("Like")
+  ).length;
+
   return (
     <>
       <hr className="border-slate-300" />
       <div className="flex p-4 gap-4">
         <div>
           <form
+            className="flex items-center gap-1"
             action={submitReactionAction.bind(
               null,
               "Love",
@@ -54,10 +63,12 @@ const CreateReaction = async (props: CreateReactionProps) => {
                 <HeartIconOutline className="size-5" />
               </button>
             )}
+            {!!loves && <span className="text-xs">({loves})</span>}
           </form>
         </div>
         <div>
           <form
+            className="flex items-center gap-1"
             action={submitReactionAction.bind(
               null,
               "Like",
@@ -76,6 +87,7 @@ const CreateReaction = async (props: CreateReactionProps) => {
                 <HandThumbUpIconOutline className="size-5" />
               </button>
             )}
+            {!!likes && <span className="text-xs">({likes})</span>}
           </form>
         </div>
       </div>
