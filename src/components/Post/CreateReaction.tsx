@@ -23,7 +23,7 @@ const CreateReaction = async (props: CreateReactionProps) => {
   });
 
   const authorReactions = reactions.filter((reaction) =>
-    reaction.fields.users.find(
+    reaction.fields.users?.find(
       (user: EntryProps) => user.fields.id === props.author.fields.id //TODO: Check if there's a way to improve this so we use the same ID through the file
     )
   );
@@ -36,7 +36,18 @@ const CreateReaction = async (props: CreateReactionProps) => {
           {authorReactions.some((reaction) =>
             reaction.fields.type.includes("Love")
           ) ? (
-            <HeartIconSolid className="size-5" />
+            <form
+              action={submitReactionAction.bind(
+                null,
+                "Love",
+                props.postId,
+                props.author.sys.id
+              )}
+            >
+              <button type="submit">
+                <HeartIconSolid className="size-5" />
+              </button>
+            </form>
           ) : (
             <form
               action={submitReactionAction.bind(
@@ -56,7 +67,18 @@ const CreateReaction = async (props: CreateReactionProps) => {
           {authorReactions.some((reaction) =>
             reaction.fields.type.includes("Like")
           ) ? (
-            <HandThumbUpIconSolid className="size-5" />
+            <form
+              action={submitReactionAction.bind(
+                null,
+                "Like",
+                props.postId,
+                props.author.sys.id
+              )}
+            >
+              <button type="submit">
+                <HandThumbUpIconSolid className="size-5" />
+              </button>
+            </form>
           ) : (
             <form
               action={submitReactionAction.bind(

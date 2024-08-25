@@ -20,24 +20,50 @@ const createReaction = async (
   );
 
   if (reaction) {
-    const body = [
-      {
-        op: "add",
-        path: `/fields/users/${process.env.CONTENTFUL_LOCALE}/-`,
-        value: {
-          sys: {
-            type: "Link",
-            linkType: "Entry",
-            id: authorId,
-          },
-        },
-      },
-    ];
+    const userIndex: number | undefined = reaction.fields.users?.findIndex(
+      (user: EntryProps) => user.sys.id
+    );
+
+    const body =
+      userIndex !== undefined
+        ? [
+            {
+              op: userIndex >= 0 ? "remove" : "add",
+              path:
+                userIndex >= 0
+                  ? `/fields/users/${process.env.CONTENTFUL_LOCALE}/${userIndex}`
+                  : `/fields/users/${process.env.CONTENTFUL_LOCALE}/-`,
+              value: {
+                sys: {
+                  type: "Link",
+                  linkType: "Entry",
+                  id: authorId,
+                },
+              },
+            },
+          ]
+        : [
+            {
+              op: "add",
+              path: "/fields/users",
+              value: {
+                [process.env.CONTENTFUL_LOCALE as string]: [
+                  {
+                    sys: {
+                      type: "Link",
+                      linkType: "Entry",
+                      id: authorId,
+                    },
+                  },
+                ],
+              },
+            },
+          ];
 
     const reactionData = await getEntry(reaction.sys.id);
 
     const response = await fetch(
-      `${process.env.CONTENTFUL_API_BASE_URL}/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/${process.env.CONTENTFUL_ENVIRONMENT}/entries/${postId}`,
+      `${process.env.CONTENTFUL_API_BASE_URL}/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/${process.env.CONTENTFUL_ENVIRONMENT}/entries/${reactionData.sys.id}`,
       {
         method: "PATCH",
         headers: {
