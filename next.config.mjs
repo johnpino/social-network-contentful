@@ -6,6 +6,11 @@ const nextConfig = {
                 protocol: 'https',
                 hostname: 'avatars.githubusercontent.com',
                 port: ''
+            },
+            {
+                protocol: 'https',
+                hostname: 'place-hold.it',
+                port: ''
             }
         ]
     }

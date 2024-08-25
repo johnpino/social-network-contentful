@@ -5,9 +5,11 @@ import Image from "next/image";
 import { Button } from "@/components";
 import { submitCommentAction } from "./actions";
 import { useRef } from "react";
+import type { Session } from "next-auth";
 
 type CreateCommentProps = {
-  author: EntryProps["fields"];
+  author: EntryProps;
+  commentAuthor: Session['user'];
   postId: string;
   version: number;
 };
@@ -32,10 +34,10 @@ const CreateComment = (props: CreateCommentProps) => {
       <div className="flex gap-4 p-4">
         <Image
           className="rounded-full h-fit"
-          src={props.author.image}
+          src={props.commentAuthor.image || 'https://place-hold.it/500'}
           width={25}
           height={25}
-          alt={`${props.author.name} Profile Photo`}
+          alt={`${props.commentAuthor.name} Profile Photo`}
         />
         <form
           ref={ref}
@@ -44,7 +46,7 @@ const CreateComment = (props: CreateCommentProps) => {
         >
           <textarea
             className="resize-none w-full p-2"
-            placeholder="Comment..."
+            placeholder={`Comment as ${props.commentAuthor.name}...`}
             name="comment"
             id="comment"
             required

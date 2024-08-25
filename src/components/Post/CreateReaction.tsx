@@ -33,66 +33,48 @@ const CreateReaction = async (props: CreateReactionProps) => {
       <hr className="border-slate-300" />
       <div className="flex p-4 gap-4">
         <div>
-          {authorReactions.some((reaction) =>
-            reaction.fields.type.includes("Love")
-          ) ? (
-            <form
-              action={submitReactionAction.bind(
-                null,
-                "Love",
-                props.postId,
-                props.author.sys.id
-              )}
-            >
+          <form
+            action={submitReactionAction.bind(
+              null,
+              "Love",
+              props.postId,
+              props.author.sys.id
+            )}
+          >
+            {authorReactions.some((reaction) =>
+              reaction.fields.type.includes("Love")
+            ) ? (
               <button type="submit">
                 <HeartIconSolid className="size-5" />
               </button>
-            </form>
-          ) : (
-            <form
-              action={submitReactionAction.bind(
-                null,
-                "Love",
-                props.postId,
-                props.author.sys.id
-              )}
-            >
+            ) : (
               <button type="submit">
                 <HeartIconOutline className="size-5" />
               </button>
-            </form>
-          )}
+            )}
+          </form>
         </div>
         <div>
-          {authorReactions.some((reaction) =>
-            reaction.fields.type.includes("Like")
-          ) ? (
-            <form
-              action={submitReactionAction.bind(
-                null,
-                "Like",
-                props.postId,
-                props.author.sys.id
-              )}
-            >
+          <form
+            action={submitReactionAction.bind(
+              null,
+              "Like",
+              props.postId,
+              props.author.sys.id
+            )}
+          >
+            {authorReactions.some((reaction) =>
+              reaction.fields.type.includes("Like")
+            ) ? (
               <button type="submit">
                 <HandThumbUpIconSolid className="size-5" />
               </button>
-            </form>
-          ) : (
-            <form
-              action={submitReactionAction.bind(
-                null,
-                "Like",
-                props.postId,
-                props.author.sys.id
-              )}
-            >
+            ) : (
               <button type="submit">
                 <HandThumbUpIconOutline className="size-5" />
               </button>
-            </form>
-          )}
+            )}
+          </form>
         </div>
       </div>
     </>

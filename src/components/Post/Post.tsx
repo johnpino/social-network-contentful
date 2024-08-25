@@ -4,6 +4,7 @@ import Image from "next/image";
 import moment from "moment";
 import CreateComment from "./CreateComment";
 import CreateReaction from "./CreateReaction";
+import { auth } from "@/auth";
 
 type PostProps = {
   id: string;
@@ -14,7 +15,9 @@ type PostProps = {
   createdAt: string;
 };
 
-const Post = (props: PostProps) => {
+const Post = async (props: PostProps) => {
+  const session = await auth();
+
   return (
     <div className="border rounded-md border-slate-400">
       <div className="p-4 flex gap-4 items-center">
@@ -72,11 +75,14 @@ const Post = (props: PostProps) => {
           </div>
         </>
       )}
-      <CreateComment
-        author={props.author}
-        postId={props.id}
-        version={props.version}
-      />
+      {session && (
+        <CreateComment
+          author={props.author}
+          commentAuthor={session.user}
+          postId={props.id}
+          version={props.version}
+        />
+      )}
     </div>
   );
 };
