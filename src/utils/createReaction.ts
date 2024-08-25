@@ -10,14 +10,15 @@ const createReaction = async (
   postId: string,
   authorId: string
 ) => {
-  const reactions = await getEntries({
+  const reactionData = await getEntries({
     contentType: "reaction",
-    fields: [{ name: "content.sys.id", value: postId }],
+    fields: [
+      { name: "content.sys.id", value: postId },
+      { name: "type", value: type },
+    ],
   });
 
-  const reaction = reactions.find((reactionItem) =>
-    reactionItem.fields.type.includes(type)
-  );
+  const reaction = reactionData[0]
 
   if (reaction) {
     const userIndex: number | undefined = reaction.fields.users?.findIndex(
