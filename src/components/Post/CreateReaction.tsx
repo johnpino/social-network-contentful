@@ -1,4 +1,3 @@
-import createReaction from "@/utils/createReaction";
 import getEntries from "@/utils/getEntries";
 import {
   HeartIcon as HeartIconOutline,
@@ -10,6 +9,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { EntryProps } from "contentful-management";
 import { submitReactionAction } from "./actions";
+import { auth } from "@/auth";
 
 type CreateReactionProps = {
   postId: string;
@@ -17,6 +17,8 @@ type CreateReactionProps = {
 };
 
 const CreateReaction = async (props: CreateReactionProps) => {
+  const session = await auth();
+
   const reactions = await getEntries({
     contentType: "reaction",
     fields: [{ name: "content.sys.id", value: props.postId }],
@@ -24,7 +26,7 @@ const CreateReaction = async (props: CreateReactionProps) => {
 
   const authorReactions = reactions.filter((reaction) =>
     reaction.fields.users?.find(
-      (user: EntryProps) => user.fields.id === props.author.fields.id //TODO: Check if there's a way to improve this so we use the same ID through the file
+      (user: EntryProps) => user.fields.id === session?.user.id
     )
   );
 
@@ -44,11 +46,11 @@ const CreateReaction = async (props: CreateReactionProps) => {
             {authorReactions.some((reaction) =>
               reaction.fields.type.includes("Love")
             ) ? (
-              <button type="submit">
+              <button type="submit" disabled={!session}>
                 <HeartIconSolid className="size-5 text-green-500" />
               </button>
             ) : (
-              <button type="submit">
+              <button type="submit" disabled={!session}>
                 <HeartIconOutline className="size-5" />
               </button>
             )}
@@ -66,11 +68,11 @@ const CreateReaction = async (props: CreateReactionProps) => {
             {authorReactions.some((reaction) =>
               reaction.fields.type.includes("Like")
             ) ? (
-              <button type="submit">
+              <button type="submit" disabled={!session}>
                 <HandThumbUpIconSolid className="size-5 text-green-500" />
               </button>
             ) : (
-              <button type="submit">
+              <button type="submit" disabled={!session}>
                 <HandThumbUpIconOutline className="size-5" />
               </button>
             )}
