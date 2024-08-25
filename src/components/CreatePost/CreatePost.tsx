@@ -15,9 +15,14 @@ const CreatePost = () => {
   };
 
   return (
-    <div>
+    <div className="max-w-lg mx-auto">
       <form ref={ref} action={handleSubmit} className="flex flex-col mb-8">
-        <textarea required name="content"></textarea>
+        <textarea
+          className="border mb-2 resize-none p-2"
+          rows={3}
+          required
+          name="content"
+        ></textarea>
         <Button type="submit">Post</Button>
       </form>
     </div>

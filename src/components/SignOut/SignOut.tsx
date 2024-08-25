@@ -3,10 +3,10 @@ import { signOutAction } from "./actions";
 
 const SignOut = async () => {
   return (
-    <form
-      action={signOutAction}
-    >
-      <Button type="submit">Sign Out</Button>
+    <form action={signOutAction}>
+      <Button type="submit" fullWidth>
+        Sign Out
+      </Button>
     </form>
   );
 };

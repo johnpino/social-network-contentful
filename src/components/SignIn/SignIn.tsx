@@ -4,7 +4,9 @@ import { signInAction } from "./actions";
 const SignIn = () => {
   return (
     <form action={signInAction}>
-      <Button type="submit">SignIn with GitHub</Button>
+      <Button type="submit" fullWidth>
+        SignIn with GitHub
+      </Button>
     </form>
   );
 };

@@ -8,7 +8,7 @@ export default async function Home() {
     <div className="container mx-auto">
       <Feed />
       {session ? <CreatePost /> : null}
-      {session ? <SignOut /> : <SignIn />}
+      <div className="max-w-lg mx-auto mb-4">{session ? <SignOut /> : <SignIn />}</div>
     </div>
   );
 }
