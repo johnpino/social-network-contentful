@@ -1,3 +1,4 @@
+import createReaction from "@/utils/createReaction";
 import getEntries from "@/utils/getEntries";
 import {
   HeartIcon as HeartIconOutline,
@@ -8,10 +9,11 @@ import {
   HandThumbUpIcon as HandThumbUpIconSolid,
 } from "@heroicons/react/24/solid";
 import { EntryProps } from "contentful-management";
+import { submitReactionAction } from "./actions";
 
 type CreateReactionProps = {
   postId: string;
-  author: EntryProps["fields"];
+  author: EntryProps;
 };
 
 const CreateReaction = async (props: CreateReactionProps) => {
@@ -22,7 +24,7 @@ const CreateReaction = async (props: CreateReactionProps) => {
 
   const authorReactions = reactions.filter((reaction) =>
     reaction.fields.users.find(
-      (user: EntryProps) => user.fields.id === props.author.id
+      (user: EntryProps) => user.fields.id === props.author.fields.id //TODO: Check if there's a way to improve this so we use the same ID through the file
     )
   );
 
@@ -36,7 +38,18 @@ const CreateReaction = async (props: CreateReactionProps) => {
           ) ? (
             <HeartIconSolid className="size-5" />
           ) : (
-            <HeartIconOutline className="size-5" />
+            <form
+              action={submitReactionAction.bind(
+                null,
+                "Love",
+                props.postId,
+                props.author.sys.id
+              )}
+            >
+              <button type="submit">
+                <HeartIconOutline className="size-5" />
+              </button>
+            </form>
           )}
         </div>
         <div>
@@ -45,7 +58,18 @@ const CreateReaction = async (props: CreateReactionProps) => {
           ) ? (
             <HandThumbUpIconSolid className="size-5" />
           ) : (
-            <HandThumbUpIconOutline className="size-5" />
+            <form
+              action={submitReactionAction.bind(
+                null,
+                "Like",
+                props.postId,
+                props.author.sys.id
+              )}
+            >
+              <button type="submit">
+                <HandThumbUpIconOutline className="size-5" />
+              </button>
+            </form>
           )}
         </div>
       </div>

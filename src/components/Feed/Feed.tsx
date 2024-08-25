@@ -11,7 +11,7 @@ const Feed = async () => {
       key={post.sys.id}
       id={post.sys.id}
       version={post.sys.version}
-      author={post.fields.author.fields}
+      author={post.fields.author}
       comments={post.fields.comments}
       createdAt={post.sys.createdAt}
     >

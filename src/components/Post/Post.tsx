@@ -8,7 +8,7 @@ import CreateReaction from "./CreateReaction";
 type PostProps = {
   id: string;
   version: number;
-  author: EntryProps["fields"];
+  author: EntryProps;
   children: ReactNode;
   comments?: Array<EntryProps["fields"]>;
   createdAt: string;
@@ -20,13 +20,13 @@ const Post = (props: PostProps) => {
       <div className="p-4 flex gap-4 items-center">
         <Image
           className="rounded-full h-fit"
-          src={props.author.image}
+          src={props.author.fields.image}
           width={40}
           height={40}
-          alt={`${props.author.name} Profile Photo`}
+          alt={`${props.author.fields.name} Profile Photo`}
         />
         <div>
-          <div className="text-sm font-bold">{props.author.name}</div>
+          <div className="text-sm font-bold">{props.author.fields.name}</div>
           <div className="text-xs italic">
             {moment(props.createdAt).fromNow()}
           </div>
@@ -52,7 +52,7 @@ const Post = (props: PostProps) => {
                         src={comment.fields.author.fields.image}
                         width={25}
                         height={25}
-                        alt={`${props.author.name} Profile Photo`}
+                        alt={`${props.author.fields.name} Profile Photo`}
                       />
                     </div>
                     <div className="bg-gray-100 rounded-lg p-4 basis-full">
